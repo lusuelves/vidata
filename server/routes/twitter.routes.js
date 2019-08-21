@@ -17,13 +17,15 @@ router.get('/search/tweets', (req, res) => {
     // .then(tweets => console.log(tweets))
     // .catch(err=> console.log(err))
     // })
-    client.get('trends/place.json', {id: '1'})
-    .then(tweets => {
-      tweets[0].trends.forEach(elm => console.log(elm.name))
-      console.log(tweets[0].locations)
-    })
-    .catch(err=> console.log(err))
-    })
+    client.get('trends/available.json', {})
+    .then(x => console.log(x)) })
+    // client.get('trends/place.json', {id: '1'})
+    // .then(tweets => {
+    //   tweets[0].trends.forEach(elm => console.log(elm.name))
+    //   console.log(tweets[0].locations)
+    // })
+    // .catch(err=> console.log(err))
+    // })
 
   //   client.get('search/tweets', {q: '#ios #swift'}, function(error, tweets, response) {
   //     tweets.statuses.forEach(function(tweet) {

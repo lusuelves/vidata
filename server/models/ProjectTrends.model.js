@@ -8,7 +8,7 @@ const projectTrendsSchema = new Schema({
     public: {type: Boolean, required: false, default: false},
     topic: {type: String, required: false},
     creatorId: { type: Schema.Types.ObjectId, ref: 'User' },
-    place: {type: Number},
+    place: {type: String},
     trendsArray: [{type: Object}]
 }, { timestamps: true })
 

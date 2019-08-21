@@ -37,7 +37,15 @@ router.post('/postProject', (req, res) => {
 router.post('/postProject/Trends', (req, res) => {
     ProjectTrends.create(req.body)
         // .then(theNewProject => res.json(theNewProject))
-        .then(x => client.get('trends/place.json', {id: req.body.place})
+        .then(x => client.get('trends/available.json', {}))
+            .then(x => { let result = ''
+            x.find(elm => {if(elm.name === req.body.place) return result = elm.woeid})
+            return result
+        })
+            .then(x => {
+                console.log('hola')
+                console.log(x)
+                client.get('trends/place.json', {id: x})
                 .then(tweets => {
                     let results = []
                     tweets[0].trends.forEach(elm => {
@@ -47,9 +55,9 @@ router.post('/postProject/Trends', (req, res) => {
                     ProjectTrends.findOneAndUpdate({title: req.body.title}, {$set: {trendsArray: results }}, {new:true})
                     .then(x=>{
                          res.json(x)
-                    })
+                    }).catch(err => console.log(err))
                   //console.log(tweets[0].locations)
-                }))
+            })})
         .catch(err => console.log('Error', err))
 })
 
