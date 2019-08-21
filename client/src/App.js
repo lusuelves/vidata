@@ -69,18 +69,4 @@ class App extends Component {
   }
 }
 
-export default App;
-
-
-
-{/* <>
-    <NavBar />
-     <NavBar setUser={this.setTheUser} userInSession={this.state.loggedInUser} />
-      <Switch>
-        <Route path="/projects" exact component={ProjectsList} />
-        <Route path="/projects/:id" exact component={ProjectDetails} />
-        <Route path="/newProject" exact component={ProjectForm} /> 
-        <Route path="/signup" exact render={match => <Signup {...match} setUser={this.setTheUser} />} />
-        <Route path="/login" exact render={match => <Login {...match} setUser={this.setTheUser} />} />
-      </Switch>
-    </> */}
+export default App

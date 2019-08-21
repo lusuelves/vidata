@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import ProjectServices from '../services/project.services'
-import {VictoryScatter} from 'victory'
 import ChartTrends from './Chart-trends'
 
 class ProjectForm extends Component {

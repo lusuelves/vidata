@@ -26,7 +26,6 @@ class ProjectTrendsForm extends Component {
 
     handleFormSubmit = e => {
         e.preventDefault()
-        console.log(this.state)
         this.service.postProjectTrends(this.state)
         
             .then(x => {
@@ -71,7 +70,7 @@ class ProjectTrendsForm extends Component {
                             </div>
                             <div className="form-group">
                                 <label htmlFor="place-topic">Place</label>
-                                <input name="place" type="number" className="form-control" id="place-topic" onChange={this.handleChangeInput} />
+                                <input name="place" type="text" className="form-control" id="place-topic" onChange={this.handleChangeInput} />
                             </div>
                             <div className="form-group">
                                 <label htmlFor="input-img">URL imagen</label>

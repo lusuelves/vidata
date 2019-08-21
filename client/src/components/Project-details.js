@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import ProjectServices from '../services/project.services'
-import {VictoryScatter} from 'victory'
 import ChartTrends from './Chart-trends'
 // import '../styles/project-details.css'
 
