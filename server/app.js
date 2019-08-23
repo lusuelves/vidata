@@ -63,6 +63,8 @@ app.use('/api', require('./routes/project.routes'))
 //app.use('/api', require('./routes/project-trends.routes'))
 app.use('/api', require('./routes/auth.routes'))
 app.use('/api', require('./routes/twitter.routes'))
+app.use('/profile', require('./routes/profile.routes'))
+
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
