@@ -12,10 +12,8 @@ export default class projectServices {
 
     getProjects = () => this.service.get('getAllProjects')
     getOneProject = id => this.service.get(`getOneProject/${id}`)
-    postProject = theNewProject => {
-        console.log(this.service.post(`postProject`, theNewProject))
-        return this.service.post(`postProject`, theNewProject)}
+    postProject = theNewProject => this.service.post(`postProject`, theNewProject)
     postProjectTrends = theNewProject => this.service.post(`postProject/Trends`, theNewProject)
     postProjectWords = theNewProject => this.service.post(`postProject/Words`, theNewProject)
-    updatePostTrends = theNewProject => this.service.post(`updatePost/Trends`, theNewProject)
+    postProjectUser = theNewProject => this.service.post(`postProject/User`, theNewProject)
 }

@@ -9,6 +9,7 @@ import ProjectDetails from './components/Project-details'
 import ProjectForm from './components/Project-form'
 import ProjectTrendsForm from './components/Project-trends-form'
 import ProjectWordsForm from './components/Project-words-form'
+import ProjectUserForm from './components/Project-user-form'
 import NavBar from './components/Navbar'
 import Signup from './components/auth/signup'
 import Login from './components/auth/login'
@@ -52,6 +53,7 @@ class App extends Component {
             <Route path="/form" exact render={() => <ProjectForm userInSession={this.state.loggedInUser} />} />
             <Route path="/trends-form" exact render={() => <ProjectTrendsForm userInSession={this.state.loggedInUser} />} />
             <Route path="/words-form" exact render={() => <ProjectWordsForm userInSession={this.state.loggedInUser} />} />
+            <Route path="/user-form" exact render={() => <ProjectUserForm userInSession={this.state.loggedInUser} />} />
           </Switch>
         </>
       );

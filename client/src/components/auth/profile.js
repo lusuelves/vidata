@@ -38,6 +38,10 @@ render(){
     </div>
     <button type="submit" className="btn btn-dark btn-sm">Subir foto</button>
 </form>
+<hr></hr>
+    <Link to="/words-form">Create Words Project</Link><br></br><hr></hr>
+    <Link to="/trends-form">Create trends Project</Link><br></br><hr></hr>
+    <Link to="/user-form">Create user Project</Link><br></br><hr></hr>
 </>
 }
 }

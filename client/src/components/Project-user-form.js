@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import ProjectTrendsServices from '../services/project.services'
-import ChartTrends from './Chart-trends'
+import ProjectUserServices from '../services/project.services'
+import BarChart from './Chart-bar'
 
-class ProjectTrendsForm extends Component {
+class ProjectUserForm extends Component {
 
     constructor(props) {
         super(props)
@@ -13,10 +13,10 @@ class ProjectTrendsForm extends Component {
             public: false,
             imageUrl: '',
             creatorId: '',
-            trendsArray: [0],
-            place: '' 
+            tweetsArray: [0],
+            user: '' 
         }
-        this.service = new ProjectTrendsServices()
+        this.service = new ProjectUserServices()
     }
 
 
@@ -26,8 +26,8 @@ class ProjectTrendsForm extends Component {
 
     handleFormSubmit = e => {
         e.preventDefault()
-        this.service.postProjectTrends(this.state)
-        .then(response => this.setState({trendsArray: response.data[1].trendsArray}))
+        this.service.postProjectUser(this.state)
+        .then(response => this.setState({tweetsArray: response.data[1].tweetsArray}))
         .catch(err => console.log(err))
     }
 
@@ -53,15 +53,11 @@ class ProjectTrendsForm extends Component {
                                 <input name="topic" type="text" className="form-control" id="input-topic" onChange={this.handleChangeInput} />
                             </div>
                             <div className="form-group">
-                                <label htmlFor="place-topic">Place</label>
-                                <input name="place" type="text" className="form-control" id="place-topic" onChange={this.handleChangeInput} />
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="input-img">URL imagen</label>
-                                <input name="imageUrl" type="text" className="form-control" id="input-img" onChange={this.handleChangeInput} />
+                                <label htmlFor="user-topic">User</label>
+                                <input name="user" type="text" className="form-control" id="user-topic" onChange={this.handleChangeInput} />
                             </div>
                             <button type="submit" className="btn btn-primary">Crear Proyecto</button>
-                        <ChartTrends info = {this.state.trendsArray} />
+                        <BarChart info = {this.state.tweetsArray} />
                         </form>
                     </div>
                 </div>
@@ -71,4 +67,4 @@ class ProjectTrendsForm extends Component {
 
 }
 
-export default ProjectTrendsForm
+export default ProjectUserForm

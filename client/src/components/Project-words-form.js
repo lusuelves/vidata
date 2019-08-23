@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import ProjectWordsServices from '../services/project.services'
 import Map from './Map'
 const axios = require('axios')
+
 class ProjectWordsForm extends Component {
 
     constructor(props) {
@@ -37,7 +38,6 @@ class ProjectWordsForm extends Component {
                 x.data.placesArray.forEach(elm => {
                 axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${elm}&key=AIzaSyAQn79ofulVcJxbKOb1tGmPG6GuA7bPojM`) 
                 .then(response => {
-                //console.log(response.data.results[0].address_components[0].short_name)
                 if(response.data.results[0]!=undefined){
                 lat = response.data.results[0].geometry.location.lat
                 lng = response.data.results[0].geometry.location.lng 
@@ -97,7 +97,6 @@ class ProjectWordsForm extends Component {
                                 <input name="imageUrl" type="text" className="form-control" id="input-img" onChange={this.handleChangeInput} />
                             </div>
                             <button type="submit" className="btn btn-primary">Crear Proyecto</button>
-                        {/* <ChartTrends info = {this.state.trendsArray} /> */}
                         </form>
                     </div>
                 </div>
