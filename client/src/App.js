@@ -8,9 +8,11 @@ import ProjectsList from './components/Project-list'
 import ProjectDetails from './components/Project-details'
 import ProjectForm from './components/Project-form'
 import ProjectTrendsForm from './components/Project-trends-form'
+import ProjectWordsForm from './components/Project-words-form'
 import NavBar from './components/Navbar'
 import Signup from './components/auth/signup'
 import Login from './components/auth/login'
+import MyProfile from './components/auth/profile'
 
 class App extends Component {
 
@@ -44,10 +46,12 @@ class App extends Component {
 
           <Switch>
             {/* <ProtectedRoute path='/profile' user={this.state.loggedInUser} component={Profile} /> */}
+            <Route path='/profile' exact render={() => <MyProfile userInSession = {this.state.loggedInUser}/>} />
             <Route path="/projects" exact render={() => <ProjectsList userInSession={this.state.loggedInUser} />} />
             <Route path="/projects/:id" exact component={ProjectDetails} />
             <Route path="/form" exact render={() => <ProjectForm userInSession={this.state.loggedInUser} />} />
             <Route path="/trends-form" exact render={() => <ProjectTrendsForm userInSession={this.state.loggedInUser} />} />
+            <Route path="/words-form" exact render={() => <ProjectWordsForm userInSession={this.state.loggedInUser} />} />
           </Switch>
         </>
       );

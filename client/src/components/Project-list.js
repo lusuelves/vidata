@@ -23,7 +23,6 @@ class ProjectList extends Component {
         this.services.getProjects()
             .then(response => {
                 this.setState({ projects: response.data })
-                console.log(this.state.projects)
             })
             .catch(err => console.log(err))
     }
@@ -50,9 +49,7 @@ class ProjectList extends Component {
 
                         {/* {this.state.projects.map(coaster => <CoasterCard key={coaster._id} {...coaster} />)} */}
                         {/* {this.state.projects.map(project => <p key = {project._id}>{project.title}</p>)} */}
-                        {this.state.projects.map(project => {
-                            console.log(project)
-                        return <ProjectCard key={project._id} {...project} />})}
+                        {this.state.projects.map(project => <ProjectCard key={project._id} {...project} />)}
                     </div>
                     <Link to = "/newProject"> New project </Link>
                 </div>
