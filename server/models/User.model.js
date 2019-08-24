@@ -5,7 +5,7 @@ const userSchema = new Schema({
     username: {type: String, required: true},
     password: {type: String, required: true},
     profilePic: {type: String},
-    posts: [{ type: Schema.Types.ObjectId, ref: 'Project' }],
+    posts: [{ type: Schema.Types.ObjectId, ref: 'ProjectTrends' }],
     postsTopics: [{ type: Schema.Types.ObjectId, ref: 'Project' }]
 }, { timestamps: true })
 

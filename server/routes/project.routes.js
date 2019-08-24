@@ -2,7 +2,8 @@ require("dotenv").config()
 const express = require('express')
 const router = express.Router()
 var Twitter = require('twitter')
- 
+
+const User = require('../models/User.model')
 const Project = require('../models/Project.model')
 const ProjectTrends = require('../models/ProjectTrends.model')
 const ProjectWords = require('../models/ProjectWords.model')
@@ -18,6 +19,7 @@ var client = new Twitter({
 
 router.get('/getAllProjects', (req, res) => {
     ProjectTrends.find()
+    .populate('creatorId')
         .then(allProjects => res.json(allProjects))
         .catch(err => console.log('Error', err))
 })
@@ -28,15 +30,21 @@ router.get('/getOneProject/:id', (req, res) => {
         .catch(err => console.log('Error', err))
 })
 
-router.post('/postProject', (req, res) => {
-    Project.create(req.body)
-        .then(theNewProject => {
-            console.log(theNewProject)
-            res.json(theNewProject)})
-        .catch(err => console.log('Error', err))
+router.get('/getProjects/:topic', (req, res) => {
+  ProjectTrends.find({topic: req.params.topic})
+      .then(theProjects => res.json(theProjects))
+      .catch(err => console.log('Error', err))
 })
 
-router.post('/postProject/Trends', (req, res) => {
+router.post('/postProject', (req, res) => {
+  Project.create(req.body)
+  .then(theNewProject => {
+    console.log(theNewProject)
+    res.json(theNewProject)})
+    .catch(err => console.log('Error', err))
+  })
+  
+  router.post('/postProject/Trends', (req, res) => {
     let result
     let results = []
     client.get('trends/available.json', {})
@@ -48,8 +56,14 @@ router.post('/postProject/Trends', (req, res) => {
             results.push(elm)
         })
     })
-    .then(() => ProjectTrends.create(req.body, {trendsArray: results}))
+    .then(() => {
+      const {title, description, public, topic, creatorId, place} = req.body
+      ProjectTrends.create({title, description, public, topic, creatorId, place, trendsArray: results})
+    })
     .then(theNewProject => res.json(theNewProject))
+    // .then(x => ProjectTrends.findOne({title: req.body.title}))
+    // .then(x => User.findByIdAndUpdate(req.body.creatorId, {$push: {posts: x._id}}, {new: true}))
+    // .then(x => console.log(x))
     .catch(err => console.log('Error', err))
 })
 
