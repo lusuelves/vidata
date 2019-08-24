@@ -12,6 +12,7 @@ export default class projectServices {
 
     getProjects = () => this.service.get('getAllProjects')
     getOneProject = id => this.service.get(`getOneProject/${id}`)
+    getProjectsTopic = topic => this.service.get(`getProjects/${topic}`)
     postProject = theNewProject => this.service.post(`postProject`, theNewProject)
     postProjectTrends = theNewProject => this.service.post(`postProject/Trends`, theNewProject)
     postProjectWords = theNewProject => this.service.post(`postProject/Words`, theNewProject)

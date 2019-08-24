@@ -11,10 +11,10 @@ class ProjectUserForm extends Component {
             description: '',
             topic: '',
             public: false,
-            imageUrl: '',
             creatorId: '',
             tweetsArray: [0],
-            user: '' 
+            user: '' ,
+            showModalUser: false
         }
         this.service = new ProjectUserServices()
     }
@@ -28,6 +28,7 @@ class ProjectUserForm extends Component {
         e.preventDefault()
         this.service.postProjectUser(this.state)
         .then(response => this.setState({tweetsArray: response.data[1].tweetsArray}))
+        .then(()=> this.props.closeModalUser())
         .catch(err => console.log(err))
     }
 
@@ -57,6 +58,7 @@ class ProjectUserForm extends Component {
                                 <input name="user" type="text" className="form-control" id="user-topic" onChange={this.handleChangeInput} />
                             </div>
                             <button type="submit" className="btn btn-primary">Crear Proyecto</button>
+                            <button className="btn btn-dark btn-sm" onClick={this.props.closeModalUser}>Cerrar</button>
                         <BarChart info = {this.state.tweetsArray} />
                         </form>
                     </div>

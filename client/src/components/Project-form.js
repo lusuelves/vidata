@@ -11,7 +11,6 @@ class ProjectForm extends Component {
             description: '',
             topic: '',
             public: false,
-            imageUrl: '',
             creatorId: ''
         }
         this.service = new ProjectServices()

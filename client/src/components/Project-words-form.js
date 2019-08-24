@@ -42,7 +42,7 @@ class ProjectWordsForm extends Component {
                 lat = response.data.results[0].geometry.location.lat
                 lng = response.data.results[0].geometry.location.lng 
                 coords.push({lat, lng})}
-                }).then(() => this.setState({placesArray: coords}))
+                }).then(() => this.setState({placesArray: coords, showModalWords: false}))
                 })
                 this.setState({
                     textsArray: x.data.textsArray,
@@ -50,6 +50,7 @@ class ProjectWordsForm extends Component {
                     likessArray: x.data.likesArray,
                     retweetsArray: x.data.retweetsArray
                 })
+                .then(() => this.props.closeModalWords())
                //window.location.assign('/projects')
             })
                     .then(x => this.setState({
@@ -97,6 +98,7 @@ class ProjectWordsForm extends Component {
                                 <input name="imageUrl" type="text" className="form-control" id="input-img" onChange={this.handleChangeInput} />
                             </div>
                             <button type="submit" className="btn btn-primary">Crear Proyecto</button>
+                            <button className="btn btn-dark btn-sm" onClick={this.props.closeModalWords}>Cerrar</button>
                         </form>
                     </div>
                 </div>

@@ -11,15 +11,15 @@ class ProjectTrendsForm extends Component {
             description: '',
             topic: '',
             public: false,
-            imageUrl: '',
             creatorId: '',
             trendsArray: [0],
-            place: '' 
+            place: '',
+            showModalTrends: false 
         }
         this.service = new ProjectTrendsServices()
     }
 
-
+   
     handleChangeInput = e => {
         this.setState({ [e.target.name]: e.target.value, creatorId: this.props.userInSession.data._id })
     }
@@ -27,14 +27,16 @@ class ProjectTrendsForm extends Component {
     handleFormSubmit = e => {
         e.preventDefault()
         this.service.postProjectTrends(this.state)
-        .then(response => this.setState({trendsArray: response.data[1].trendsArray}))
+        .then(response => {
+            console.log(response.data)
+            this.setState({trendsArray: response.data.trendsArray})})
+        .then(() => this.props.closeModalTrends())
         .catch(err => console.log(err))
     }
 
     render() {
         return (
             <div className="container">
-
                 <h1>Nuevo proyecto</h1>
 
                 <div className="row justify-content-center">
@@ -61,6 +63,7 @@ class ProjectTrendsForm extends Component {
                                 <input name="imageUrl" type="text" className="form-control" id="input-img" onChange={this.handleChangeInput} />
                             </div>
                             <button type="submit" className="btn btn-primary">Crear Proyecto</button>
+                            <button className="btn btn-dark btn-sm" onClick={this.props.closeModalTrends}>Cerrar</button>
                         <ChartTrends info = {this.state.trendsArray} />
                         </form>
                     </div>
