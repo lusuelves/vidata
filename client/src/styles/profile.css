@@ -1,3 +1,36 @@
 img{
     width: 10vh
 }
+
+.container mt-5{
+    padding: 0
+}
+
+.profile-row{
+    border: solid black 0.5px
+}
+
+.profile-row-y{
+    border-left: solid black 0.5px
+}
+
+.btn-profile{
+    border: solid black 0.5px;
+    radius: 0%;
+    padding: 10px
+}
+
+
+
+.form-control{
+    width: 50%;
+    radius: 0%
+}
+
+.input-image{
+    background-color: white
+}
+
+.profile-body{
+    margin-top: 15vh
+}

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import ProjectTrendsServices from '../services/project.services'
 import ChartTrends from './Chart-trends'
 
+import '../styles/forms.css'
 class ProjectTrendsForm extends Component {
 
     constructor(props) {
@@ -28,7 +29,6 @@ class ProjectTrendsForm extends Component {
         e.preventDefault()
         this.service.postProjectTrends(this.state)
         .then(response => {
-            console.log(response.data)
             this.setState({trendsArray: response.data.trendsArray})})
         .then(() => this.props.closeModalTrends())
         .catch(err => console.log(err))
@@ -36,7 +36,7 @@ class ProjectTrendsForm extends Component {
 
     render() {
         return (
-            <div className="container">
+            <div className="container form-body">
                 <h1>Nuevo proyecto</h1>
 
                 <div className="row justify-content-center">
@@ -58,9 +58,17 @@ class ProjectTrendsForm extends Component {
                                 <label htmlFor="place-topic">Place</label>
                                 <input name="place" type="text" className="form-control" id="place-topic" onChange={this.handleChangeInput} />
                             </div>
-                            <div className="form-group">
-                                <label htmlFor="input-img">URL imagen</label>
-                                <input name="imageUrl" type="text" className="form-control" id="input-img" onChange={this.handleChangeInput} />
+                            <div class="form-group">
+                                <label for="topic">Topic:</label>
+                                <select name="topic" className="form-control" id="topic">
+                                    <option>Seleccionar</option>
+                                    <option value='Culture'>Culture</option>
+                                    <option value='Knowledge'>Knowledge</option>
+                                    <option value='Politics/Economics'>Politics/Economics</option>
+                                    <option value='Moral'>Moral</option>
+                                    <option value='Sports'>Sports</option>
+                                    <option value='Other'>Other</option>
+                                </select>
                             </div>
                             <button type="submit" className="btn btn-primary">Crear Proyecto</button>
                             <button className="btn btn-dark btn-sm" onClick={this.props.closeModalTrends}>Cerrar</button>

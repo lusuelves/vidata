@@ -10,7 +10,8 @@ class Signup extends Component {
             password: '',
             profilePic: '',
             posts: [],
-            postsTopics: []
+            postsTopics: [],
+            showModalSignup: false
         }
         this.authServices = new AuthServices()
     }
@@ -35,6 +36,7 @@ class Signup extends Component {
                 this.props.setUser(theNewUser)
                 this.props.history.push('/projects')
             })
+            .then(() => this.props.closeModalSignup())
             .catch(err => console.log(err))
     }
 

@@ -1,9 +1,15 @@
 body {
   margin-top: 50px;
-  font-family: letter-gothic-std, 'monospace';
+  font-family: letter-gothic-std, 'monospace' !important;
   font-style: normal;
   font-weight: 400
 }
+
+svg{
+  height: 95vh !important
+}
+
+
 @font-face {
   font-family: 'LetterGothicStd';
   /* Antes de descargar el archivo, le decimos al buscador

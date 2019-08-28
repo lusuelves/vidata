@@ -1,0 +1,11 @@
+.home-page-button{
+    border: solid black 0.5px;
+    justify-content: center;
+    margin: 20px;
+    padding-bottom: 10px
+}
+
+a{
+    margin-left: 55px;
+    margin-bottom: 10px
+}

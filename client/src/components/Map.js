@@ -6,34 +6,22 @@ export class MapContainer extends Component {
         super(props)
     }
     
-  render() {
+  render() {   
     return (
-
-      <Map google={this.props.google} initialCenter={{
-        lat: 40.854885,
-        lng: -1.081807
-      }} 
-      zoom={5}>
-      {this.props.places.map(elm => 
-        <Marker
-        title={'The marker`s title will appear as a tooltip.'}
-        name={'SOMA'}
-          position={{lat: elm.lat, lng: elm.lng}} />
-        )} 
-      
-      <Marker
-      title={'The marker`s title will appear as a tooltip.'}
-      name={'SOMA'}
-        position={{lat: 40, lng: -1}} />
-        <Marker onClick={this.onMarkerClick}
-                name={'Current location'} />
- 
+      <>
+      {console.log(this.props)}
+      <Map google={this.props.google} initialCenter={{lat: 40.854885, lng: -1.081807}} zoom={5}>
+      {this.props.places.map(elm => <Marker
+                          title={'The marker`s title will appear as a tooltip.'}
+                          name={'SOMA'}
+                          position={{lat: elm.lat, lng: elm.lng}} />)} 
         <InfoWindow onClose={this.onInfoWindowClose}>
             <div>
               {/* <h1>{this.state.selectedPlace.name}</h1> */}
             </div>
         </InfoWindow>
       </Map>
+      </>
     );
   }
 }

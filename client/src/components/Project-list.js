@@ -1,47 +1,46 @@
 import React, { Component } from 'react'
 import ProjectServices from '../services/project.services'
 import { Link } from 'react-router-dom'
+import { Modal } from 'react-bootstrap'
 
-import { Modal, Toast } from 'react-bootstrap'
 import ProjectCard from './Project-card'
 import ProjectTrendsForm from './Project-trends-form'
 
-//import Dialog from '@material-ui/core/Dialog';
+import '../styles/button.css'
+import '../styles/projects-list.css'
 
 
 class ProjectList extends Component {
 
     constructor(props) {
         super(props)
-        this.state = {projects: [], showModalTrends: false, param:'out' }
+        this.state = {projects: [[0], [1], [2]], showModalTrends: false, params:this.props.url  }
         this.services = new ProjectServices()
     }
 
-    componentDidMount = () => this.updateList()
-
+    componentDidMount = () => this.updateList();
+    componentDidUpdate = () => this.state.params !== this.props.match.url && this.updateList();
+    
     updateList = (x) => {
-      //  this.services.getProjects()
-       this.props.function(this.state.param)
-            .then(response => {
-                console.log(response.data)
-                this.setState({ projects: response.data })
-                console.log(this.state.projects)
-            })
+       const { url } = this.props.match
+       this.props.match.params ? this.props.function(this.props.match.params.topic)
+            .then(response => this.setState({ projects: response.data, params:url }))
+            .catch(err => console.log(err))
+            
+            : this.props.function()
+            .then(response => this.setState({ projects: response.data, params:url }))
             .catch(err => console.log(err))
     }
 
-    changeParam = (x) => this.setState({param: x})
-
     handleModalOpenTrends = () => this.setState({ showModalTrends: true })
     handleModalCloseTrends = () => this.setState({ showModalTrends: false })
-
 
     render() {
 
         return (
             <>
-                <div className="container">
-
+                <div className="container project-list-body">
+                <div className = 'row'>
                 <Modal show={this.state.showModalTrends} onHide={this.handleModalCloseTrends}>
 
                     <Modal.Body>
@@ -50,18 +49,20 @@ class ProjectList extends Component {
 
                 </Modal>
 
-                    <h1>Listado de projectos de visualización de datos</h1>
-
-                    {this.props.userInSession && <button className="btn btn-dark btn-big" onClick={this.handleModalOpenTrends}>Nueva trends project</button>} 
-
-                    <div className="row">
-
-                        {/* {this.state.projects.map(coaster => <CoasterCard key={coaster._id} {...coaster} />)} */}
-                        {/* {this.state.projects.map(project => <p key = {project._id}>{project.title}</p>)} */}
-                        {this.state.projects.map(project => <ProjectCard key={project._id} {...project} />)}
+                    {this.props.userInSession && <button className="button" onClick={this.handleModalOpenTrends}>Nueva trends project</button>} 
                     </div>
-                    <Link to = "/newProject"> New project </Link>
-                    <Link to = "/by-topic"> See by trends </Link>
+                    <div className = 'row'>
+                    
+                        <h1 >Listado de projectos de visualización de datos</h1>
+
+                    </div>
+
+                    <div className="row project-list-row justify-content-center">
+                        {(this.state.projects[0] !== undefined) ? this.state.projects[0].map(project => <ProjectCard key={project._id} {...project} />) : this.state.projects.map(project => <ProjectCard key={project._id} {...project} />)}
+                        {(this.state.projects[1] !== undefined) ? this.state.projects[1].map(project => <ProjectCard key={project._id} {...project} />) : this.state.projects.map(project => <ProjectCard key={project._id} {...project} />)}
+                        {(this.state.projects[2] !== undefined) ? this.state.projects[2].map(project => <ProjectCard key={project._id} {...project} />) : this.state.projects.map(project => <ProjectCard key={project._id} {...project} />)}
+                    </div>
+                    <Link to="/newProject"> New project </Link>
                 </div>
             </>
         )

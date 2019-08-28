@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import ProjectUserServices from '../services/project.services'
 import BarChart from './Chart-bar'
 
+import '../styles/forms.css'
+
 class ProjectUserForm extends Component {
 
     constructor(props) {
@@ -50,12 +52,20 @@ class ProjectUserForm extends Component {
                                 <input name="description" type="text" className="form-control" id="input-descripcion" onChange={this.handleChangeInput} />
                             </div>
                             <div className="form-group">
-                                <label htmlFor="input-topic">Topic</label>
-                                <input name="topic" type="text" className="form-control" id="input-topic" onChange={this.handleChangeInput} />
+                                <label htmlFor="input-user">User</label>
+                                <input name="user" type="text" className="form-control" id="input-user" onChange={this.handleChangeInput} />
                             </div>
-                            <div className="form-group">
-                                <label htmlFor="user-topic">User</label>
-                                <input name="user" type="text" className="form-control" id="user-topic" onChange={this.handleChangeInput} />
+                            <div class="form-group">
+                                <label for="topic">Topic:</label>
+                                <select name="topic" className="form-control" id="topic">
+                                    <option>Seleccionar</option>
+                                    <option value='Culture'>Culture</option>
+                                    <option value='Knowledge'>Knowledge</option>
+                                    <option value='Politics/Economics'>Politics/Economics</option>
+                                    <option value='Moral'>Moral</option>
+                                    <option value='Sports'>Sports</option>
+                                    <option value='Other'>Other</option>
+                                </select>
                             </div>
                             <button type="submit" className="btn btn-primary">Crear Proyecto</button>
                             <button className="btn btn-dark btn-sm" onClick={this.props.closeModalUser}>Cerrar</button>

@@ -7,7 +7,8 @@ class Login extends Component {
         super(props)
         this.state = {
             username: '',
-            password: ''
+            password: '',
+            showModalLogin: false
         }
         this.authServices = new AuthServices()
     }
@@ -27,9 +28,10 @@ class Login extends Component {
                     password: ''
                 })
                 console.log('paso 1')
+                console.log(this.props)
                 this.props.setUser(theLoggedUser)
-                this.props.history.push('/projects')
             })
+            .then(() => this.props.closeModalLogin())
             .catch(err => console.log(err.response.data.message))
     }
 

@@ -5,10 +5,10 @@ import { Switch, Route } from 'react-router-dom'
 import AuthServices from './services/auth.services'
 import ProjectServices from './services/project.services'
 
+import HomePage from './components/Home-page'
 import ByTopic from './components/By-topic'
 import ProjectsList from './components/Project-list'
 import ProjectDetails from './components/Project-details'
-import ProjectForm from './components/Project-form'
 import ProjectTrendsForm from './components/Project-trends-form'
 import ProjectWordsForm from './components/Project-words-form'
 import ProjectUserForm from './components/Project-user-form'
@@ -54,12 +54,12 @@ class App extends Component {
 
           <Switch>
             {/* <ProtectedRoute path='/profile' user={this.state.loggedInUser} component={Profile} /> */}
+            <Route path = '/' exact render = {() => <HomePage userInSession  = {this.state.loggedInUser}  function = {() => this.projectServices.getProjects()}/> } />
             <Route path='/profile' exact render={() => <MyProfile userInSession = {this.state.loggedInUser}/>} />
-            <Route path="/projectsAll" exact render={() => <ProjectsList function = {() => this.projectServices.getProjects()} userInSession={this.state.loggedInUser} />} />
-            <Route path="/projects/:topic" exact render={() => <ProjectsList function = {(x) => this.projectServices.getProjectsTopic(x)} userInSession={this.state.loggedInUser} />} />            
-            <Route path="/project/:id" exact component={ProjectDetails} />
-            <Route path="/form" exact render={() => <ProjectForm userInSession={this.state.loggedInUser} />} />
-            {/* <Route path="/trends-form" exact render={() => <ProjectTrendsForm userInSession={this.state.loggedInUser} />} /> */}
+            <Route path="/projectsAll" exact render={(match) => <ProjectsList {...match} function = {() => this.projectServices.getProjects()} userInSession={this.state.loggedInUser} />} />
+            <Route path="/projects/:topic" exact render={(match) => <ProjectsList {...match} function = {(x) => this.projectServices.getProjectsTopic(x)} userInSession={this.state.loggedInUser} />} />            
+            <Route path="/project/:id" exact component = {ProjectDetails} />
+            <Route path="/trends-form" exact render={() => <ProjectTrendsForm userInSession={this.state.loggedInUser} />} />
             <Route path="/words-form" exact render={() => <ProjectWordsForm userInSession={this.state.loggedInUser} />} />
             <Route path="/user-form" exact render={() => <ProjectUserForm userInSession={this.state.loggedInUser} />} />
             <Route path = "/by-topic" exact component = {ByTopic} />
@@ -73,7 +73,7 @@ class App extends Component {
 
           <Switch>
             {/* <ProtectedRoute path='/profile' user={this.state.loggedInUser} component={Profile} /> */}
-            <Route path="/projects" exact render={() => <ProjectsList  function = {() => this.projectServices.getProjects()} userInSession={this.state.loggedInUser} />} />
+            <Route path="/projectsAll" exact render={(match) => <ProjectsList {...match} function = {() => this.projectServices.getProjects()} userInSession={this.state.loggedInUser} setUser = {this.setUser} />} />
             <Route path="/projects/:id" exact component={ProjectDetails} />
             <Route path="/signup" exact render={match => <Signup {...match} setUser={this.setTheUser} />} />
             <Route path="/login" exact render={match => <Login {...match} setUser={this.setTheUser} />} />

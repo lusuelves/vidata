@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
 import ProjectWordsServices from '../services/project.services'
 import Map from './Map'
+import '../styles/forms.css'
+
 const axios = require('axios')
+
 
 class ProjectWordsForm extends Component {
 
@@ -34,7 +37,6 @@ class ProjectWordsForm extends Component {
         let lng
         this.service.postProjectWords(this.state)
             .then(x => {
-                console.log(x.data)
                 x.data.placesArray.forEach(elm => {
                 axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${elm}&key=AIzaSyAQn79ofulVcJxbKOb1tGmPG6GuA7bPojM`) 
                 .then(response => {
@@ -42,29 +44,32 @@ class ProjectWordsForm extends Component {
                 lat = response.data.results[0].geometry.location.lat
                 lng = response.data.results[0].geometry.location.lng 
                 coords.push({lat, lng})}
-                }).then(() => this.setState({placesArray: coords, showModalWords: false}))
+                }).then(() => {
+                    this.setState({placesArray: coords, showModalWords: false})
+                    this.service.updateProjectWords({title: this.state.title, placesArray: coords})
+                })
                 })
                 this.setState({
                     textsArray: x.data.textsArray,
-                    // placesArray: x.data.placesArray,
-                    likessArray: x.data.likesArray,
+                    likesArray: x.data.likesArray,
                     retweetsArray: x.data.retweetsArray
+                        })
                 })
                 .then(() => this.props.closeModalWords())
-               //window.location.assign('/projects')
-            })
-                    .then(x => this.setState({
-                    title: '',
-                    description: '',
-                    topic: '',
-                    public: false,
-                    creatorId: '',
-                    word: '',
-                    textsArray: '',
-                    placesArray: [],
-                    likessArray:'',
-                    retweetsArray: ''
-                }))
+                .then(x => this.setState({
+                title: '',
+                description: '',
+                topic: '',
+                public: false,
+                creatorId: '',
+                word: '',
+                textsArray: '',
+                placesArray: [],
+                likessArray:'',
+                retweetsArray: ''
+                    }))
+             
+          
             .catch(err => console.log('error', err))
     }
 
@@ -86,16 +91,20 @@ class ProjectWordsForm extends Component {
                                 <input name="description" type="text" className="form-control" id="input-descripcion" onChange={this.handleChangeInput} />
                             </div>
                             <div className="form-group">
-                                <label htmlFor="input-topic">Topic</label>
-                                <input name="topic" type="text" className="form-control" id="input-topic" onChange={this.handleChangeInput} />
+                                <label htmlFor="input-word">Word</label>
+                                <input name="word" type="text" className="form-control" id="input-word" onChange={this.handleChangeInput} />
                             </div>
-                            <div className="form-group">
-                                <label htmlFor="word-topic">Word</label>
-                                <input name="word" type="text" className="form-control" id="word-topic" onChange={this.handleChangeInput} />
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="input-img">URL imagen</label>
-                                <input name="imageUrl" type="text" className="form-control" id="input-img" onChange={this.handleChangeInput} />
+                            <div class="form-group">
+                                <label for="topic">Topic:</label>
+                                <select name="topic" className="form-control" id="topic">
+                                    <option>Seleccionar</option>
+                                    <option value='Culture'>Culture</option>
+                                    <option value='Knowledge'>Knowledge</option>
+                                    <option value='Politics/Economics'>Politics/Economics</option>
+                                    <option value='Moral'>Moral</option>
+                                    <option value='Sports'>Sports</option>
+                                    <option value='Other'>Other</option>
+                                </select>
                             </div>
                             <button type="submit" className="btn btn-primary">Crear Proyecto</button>
                             <button className="btn btn-dark btn-sm" onClick={this.props.closeModalWords}>Cerrar</button>
