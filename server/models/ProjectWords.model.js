@@ -11,7 +11,9 @@ const projectWordsSchema = new Schema({
     placesArray: [],
     retweetsArray: [],
     likesArray: [],
-    word: String
+    word: String,
+    likes: {type: Number, default: 0},
+    coments: [{type: String}]
 }, { timestamps: true })
 
 const ProjectWords= mongoose.model('ProjectWords', projectWordsSchema)
